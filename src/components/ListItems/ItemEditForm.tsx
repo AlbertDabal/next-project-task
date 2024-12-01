@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { IconTrash } from "@/assets/icons/IconTrash";
+import { Button } from "@/core/ui/atoms/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { FormField } from "./FormField";
-import { IconTrash } from "@/assets/icons/IconTrash";
 
 export type FormFieldProps = {
   name: string;
   link: string;
 };
 
-export const EditForm = () => {
+export const ItemEditForm = () => {
   // const [items, setItems] = useState([]);
 
   const ItemSchema = z.object({
@@ -43,7 +43,7 @@ export const EditForm = () => {
   };
 
   return (
-    <div className="flex items-start gap-[16px] w-full">
+    <div className="flex items-start gap-[16px] w-full py-[20px] px-[24px] bg-white">
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <FormField name="label" label="Nazwa" placeholder="np. Promocje" />
@@ -53,9 +53,11 @@ export const EditForm = () => {
             placeholder="Wklej lub wyszukaj"
             search
           />
-          <div className="flex gap-[8px]">
-            <button onClick={handleCancel}>Anuluj</button>
-            <button type="submit">Dodaj</button>
+          <div className="flex gap-[8px] mt-[20px]">
+            <Button onClick={handleCancel}>Anuluj</Button>
+            <Button variant="secondary" type="submit">
+              Dodaj
+            </Button>
           </div>
         </form>
       </FormProvider>

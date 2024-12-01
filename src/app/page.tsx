@@ -1,4 +1,4 @@
-import { ListItem } from "@/components/Main/ListItem";
+import { ListItem } from "@/components/ListItems/ListItems";
 
 export default function Home() {
   return (
