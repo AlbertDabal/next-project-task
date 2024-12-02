@@ -111,6 +111,7 @@ export function SortableTree({
   indicator = false,
   indentationWidth = 50,
   removable,
+  treeItem,
 }: Props) {
   const [items, setItems] = useState(() => defaultItems);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -206,6 +207,7 @@ export function SortableTree({
       <SortableContext items={sortedIds} strategy={verticalListSortingStrategy}>
         {flattenedItems.map(({ id, children, collapsed, depth }) => (
           <SortableTreeItem
+            treeItem={treeItem}
             key={id}
             id={id}
             value={id}
@@ -228,6 +230,7 @@ export function SortableTree({
           >
             {activeId && activeItem ? (
               <SortableTreeItem
+                treeItem={treeItem}
                 id={activeId}
                 depth={activeItem.depth}
                 clone

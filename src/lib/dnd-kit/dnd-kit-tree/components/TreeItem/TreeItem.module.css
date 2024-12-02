@@ -67,14 +67,14 @@
 }
 
 .TreeItem {
-  --vertical-padding: 10px;
+  /* --vertical-padding: 10px; disabled because i use other implementation */
 
   position: relative;
   display: flex;
   align-items: center;
   padding: var(--vertical-padding) 10px;
   background-color: #fff;
-  border: 1px solid #dedede;
+  border-right: none;
   color: #222;
   box-sizing: border-box;
 }
