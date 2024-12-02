@@ -13,7 +13,7 @@ export const CustomTreeItem = ({
   const handleAddItem = () => {};
 
   return (
-    <div className="flex w-full justify-between bg-white py-[20px] px-[24px] overflow-hidden border-[1px] border-[#dedede] border-r-0">
+    <div className="flex w-full justify-between bg-white py-[20px] px-[24px] overflow-hidden border-[1px] border-[#dedede] ">
       <div className="flex gap-[4px] items-center ">
         {handle}
         <div className="flex flex-col gap-[6px]">

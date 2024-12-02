@@ -5,6 +5,7 @@ import React, { forwardRef, HTMLAttributes } from "react";
 import { Handle, Remove } from "@/lib/dnd-kit/global/Item";
 import styles from "./TreeItem.module.css";
 import { CustomTreeItem } from "./CustomTreeItem";
+import { CustomTreeWrapper } from "./CustomTreeWrapper";
 
 export interface Props extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
   treeItem: any;
@@ -40,6 +41,8 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
       style,
       value,
       wrapperRef,
+      dataItems,
+      handleChangeDataItem,
       ...props
     },
     ref
@@ -63,10 +66,17 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
         {...props}
       >
         <div className={styles.TreeItem} ref={ref} style={style}>
-          <CustomTreeItem
+          <CustomTreeWrapper
             handle={<Handle {...handleProps} />}
             onRemove={onRemove}
+            dataItems={dataItems}
+            value={value}
           />
+
+          {/* <CustomTreeItem
+            handle={<Handle {...handleProps} />}
+            onRemove={onRemove}
+          /> */}
         </div>
       </li>
     );

@@ -26,6 +26,8 @@ export function SortableTreeItem({ id, depth, ...props }: Props) {
     setDroppableNodeRef,
     transform,
     transition,
+    dataItems,
+    handleChangeDataItem,
   } = useSortable({
     id,
     animateLayoutChanges,
@@ -45,6 +47,8 @@ export function SortableTreeItem({ id, depth, ...props }: Props) {
       ghost={isDragging}
       disableSelection={iOS}
       disableInteraction={isSorting}
+      dataItems={dataItems}
+      handleChangeDataItem={handleChangeDataItem}
       handleProps={{
         ...attributes,
         ...listeners,

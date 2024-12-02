@@ -112,6 +112,8 @@ export function SortableTree({
   indentationWidth = 50,
   removable,
   treeItem,
+  dataItems,
+  handleChangeDataItem,
 }: Props) {
   const [items, setItems] = useState(() => defaultItems);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -221,6 +223,8 @@ export function SortableTree({
                 : undefined
             }
             onRemove={removable ? () => handleRemove(id) : undefined}
+            dataItems={dataItems}
+            handleChangeDataItem={handleChangeDataItem}
           />
         ))}
         {createPortal(
@@ -237,6 +241,8 @@ export function SortableTree({
                 childCount={getChildCount(items, activeId) + 1}
                 value={activeId.toString()}
                 indentationWidth={indentationWidth}
+                dataItems={dataItems}
+                handleChangeDataItem={handleChangeDataItem}
               />
             ) : null}
           </DragOverlay>,
