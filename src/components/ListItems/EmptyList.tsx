@@ -4,9 +4,9 @@ import { IconPlusCircle } from "@/assets/icons/IconPlusCircle";
 import { Button } from "@/core/ui/atoms/Button";
 import React from "react";
 
-export const EmptyList = () => {
+export const EmptyList = ({ addItem }) => {
   const handleAddItem = () => {
-    console.log("handleAddItem");
+    addItem();
   };
 
   return (

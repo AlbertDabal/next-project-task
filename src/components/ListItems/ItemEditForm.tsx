@@ -12,7 +12,7 @@ export type FormFieldProps = {
   link: string;
 };
 
-export const ItemEditForm = () => {
+export const ItemEditForm = ({ label, url }) => {
   // const [items, setItems] = useState([]);
 
   const ItemSchema = z.object({
