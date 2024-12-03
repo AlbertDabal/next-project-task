@@ -85,6 +85,37 @@ export const mockDataTrees: TreeData = [
   ],
   [
     {
+      id: "aef8f68d-1245-452d-a3e1-66cb3bc1f5be",
+      fields: {
+        label: "Promocje",
+        url: "https://rc32141.redcart.pl/promocje",
+        isEdited: false,
+      },
+
+      children: [
+        {
+          id: "792e8d1f-c525-48df-ae24-e021f2102a81",
+          fields: {
+            label: "Ostatnie 7 dni",
+            url: "https://rc32141.redcart.pl/7dni",
+            isEdited: true,
+          },
+          children: [],
+        },
+      ],
+    },
+    {
+      id: "ffdc4e09-1528-47ce-a1de-1af5f0b5a24d",
+      fields: {
+        label: "Diamenty forbesa",
+        url: "https://www.forbes.pl/diamenty",
+        isEdited: false,
+      },
+      children: [],
+    },
+  ],
+  [
+    {
       id: "d1bdae22-bb71-434c-b1eb-861860d76e16",
       fields: {
         label: "Promocje",

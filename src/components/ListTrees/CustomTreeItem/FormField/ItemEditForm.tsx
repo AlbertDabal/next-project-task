@@ -84,16 +84,18 @@ export const ItemEditForm: FC<ItemEditFormProps> = ({
   };
 
   return (
-    <div className="flex items-start gap-[16px] w-full py-[20px] px-[24px] bg-white">
+    <div className="flex items-start gap-[16px] w-full py-[20px] px-[24px] bg-white rounded-md border-[1px] border-border-primary mx-[24px] my-[16px]">
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <FormField name="label" label="Nazwa" placeholder="np. Promocje" />
-          <FormField
-            name="url"
-            label="Link"
-            placeholder="Wklej lub wyszukaj"
-            search
-          />
+          <div className="flex flex-col gap-[8px]">
+            <FormField name="label" label="Nazwa" placeholder="np. Promocje" />
+            <FormField
+              name="url"
+              label="Link"
+              placeholder="Wklej lub wyszukaj"
+              search
+            />
+          </div>
           <div className="flex gap-[8px] mt-[20px]">
             <Button onClick={handleCancel}>Anuluj</Button>
             <Button variant="secondary" type="submit">

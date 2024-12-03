@@ -8,9 +8,12 @@ import { v4 as uuidv4 } from "uuid";
 import { TreeData } from "@/core/types/TreeNode";
 
 export const ListMenus = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const [listMenu, setListMenu] = useState<TreeData>(mockDataTrees);
 
-  console.log("uuidv4()", uuidv4());
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleAddItem = () => {
     const id = uuidv4();
@@ -39,6 +42,8 @@ export const ListMenus = () => {
     }
   }, [listMenu]);
 
+  if (!isMounted) return null;
+
   return (
     <div className="flex flex-col w-full max-w-[1208px] gap-[32px]">
       <EmptyList addItem={handleAddItem} />
@@ -50,7 +55,6 @@ export const ListMenus = () => {
           setListMenu={setListMenu}
         />
       ))}
-      <pre>{JSON.stringify(listMenu, null, 2)}</pre>
     </div>
   );
 };

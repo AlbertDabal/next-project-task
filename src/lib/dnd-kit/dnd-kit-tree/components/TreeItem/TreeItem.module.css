@@ -3,6 +3,7 @@
   box-sizing: border-box;
   padding-left: var(--spacing);
   margin-bottom: -1px;
+  background-color: #f9fafb;
 
   &.clone {
     display: inline-block;
@@ -73,7 +74,7 @@
   display: flex;
   align-items: center;
   padding: var(--vertical-padding) 10px;
-  background-color: #fff;
+
   border-right: none;
   color: #222;
   box-sizing: border-box;
