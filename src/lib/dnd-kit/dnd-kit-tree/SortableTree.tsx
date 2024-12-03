@@ -111,8 +111,6 @@ export function SortableTree({
   indicator = false,
   indentationWidth = 50,
   removable,
-  treeItem,
-  dataItems,
   handleChangeDataItem,
   items,
   setItems,
@@ -208,9 +206,10 @@ export function SortableTree({
       onDragCancel={handleDragCancel}
     >
       <SortableContext items={sortedIds} strategy={verticalListSortingStrategy}>
-        {flattenedItems.map(({ id, children, collapsed, depth }) => (
+        {console.log("flattenedItems", flattenedItems)}
+        {flattenedItems.map(({ id, children, collapsed, depth, fields }) => (
           <SortableTreeItem
-            treeItem={treeItem}
+            fields={fields}
             key={id}
             id={id}
             value={id}
@@ -224,7 +223,6 @@ export function SortableTree({
                 : undefined
             }
             onRemove={removable ? () => handleRemove(id) : undefined}
-            dataItems={dataItems}
             handleChangeDataItem={handleChangeDataItem}
           />
         ))}
@@ -235,14 +233,12 @@ export function SortableTree({
           >
             {activeId && activeItem ? (
               <SortableTreeItem
-                treeItem={treeItem}
                 id={activeId}
                 depth={activeItem.depth}
                 clone
                 childCount={getChildCount(items, activeId) + 1}
                 value={activeId.toString()}
                 indentationWidth={indentationWidth}
-                dataItems={dataItems}
                 handleChangeDataItem={handleChangeDataItem}
               />
             ) : null}

@@ -12,9 +12,13 @@ export type FormFieldProps = {
   link: string;
 };
 
-export const ItemEditForm = ({ label, url }) => {
-  // const [items, setItems] = useState([]);
-
+export const ItemEditForm = ({
+  label,
+  url,
+  onRemove,
+  value,
+  handleChangeDataItem,
+}) => {
   const ItemSchema = z.object({
     label: z.string().min(1, "Required label"),
     url: z.string().optional(),
@@ -25,21 +29,37 @@ export const ItemEditForm = ({ label, url }) => {
   const methods = useForm<ItemSchemaType>({
     resolver: zodResolver(ItemSchema),
     defaultValues: {
-      label: "",
-      url: "",
+      label: label,
+      url: url,
     },
   });
 
   const { reset, handleSubmit } = methods;
 
   const onSubmit = (data) => {
-    console.log(data);
+    handleChangeDataItem(value, {
+      isEdited: false,
+      ...data,
+    });
 
     reset();
   };
 
   const handleCancel = () => {
+    handleChangeDataItem(value, {
+      isEdited: false,
+    });
+
+    //CHECK IS SET LABEL
+    if (label === "") {
+      onRemove();
+    }
+
     reset();
+  };
+
+  const handleRemove = () => {
+    onRemove();
   };
 
   return (
@@ -62,7 +82,7 @@ export const ItemEditForm = ({ label, url }) => {
         </form>
       </FormProvider>
 
-      <button>
+      <button onClick={handleRemove}>
         <IconTrash />
       </button>
     </div>

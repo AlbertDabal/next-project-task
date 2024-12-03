@@ -15,7 +15,7 @@ const animateLayoutChanges: AnimateLayoutChanges = ({
   wasDragging,
 }) => (isSorting || wasDragging ? false : true);
 
-export function SortableTreeItem({ id, depth, ...props }: Props) {
+export function SortableTreeItem({ id, fields, depth, ...props }: Props) {
   const {
     treeItem,
     attributes,
@@ -26,7 +26,6 @@ export function SortableTreeItem({ id, depth, ...props }: Props) {
     setDroppableNodeRef,
     transform,
     transition,
-    dataItems,
     handleChangeDataItem,
   } = useSortable({
     id,
@@ -39,6 +38,7 @@ export function SortableTreeItem({ id, depth, ...props }: Props) {
 
   return (
     <TreeItem
+      fields={fields}
       treeItem={treeItem}
       ref={setDraggableNodeRef}
       wrapperRef={setDroppableNodeRef}
@@ -47,7 +47,6 @@ export function SortableTreeItem({ id, depth, ...props }: Props) {
       ghost={isDragging}
       disableSelection={iOS}
       disableInteraction={isSorting}
-      dataItems={dataItems}
       handleChangeDataItem={handleChangeDataItem}
       handleProps={{
         ...attributes,

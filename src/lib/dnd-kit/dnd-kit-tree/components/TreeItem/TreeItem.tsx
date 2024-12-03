@@ -41,8 +41,8 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
       style,
       value,
       wrapperRef,
-      dataItems,
       handleChangeDataItem,
+      fields,
       ...props
     },
     ref
@@ -67,9 +67,9 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
       >
         <div className={styles.TreeItem} ref={ref} style={style}>
           <CustomTreeWrapper
+            fields={fields}
             handle={<Handle {...handleProps} />}
             onRemove={onRemove}
-            dataItems={dataItems}
             value={value}
             handleChangeDataItem={handleChangeDataItem}
           />

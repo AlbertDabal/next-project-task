@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export const CustomTreeItem = ({
   label = "TEST",
@@ -18,7 +19,13 @@ export const CustomTreeItem = ({
     });
   };
 
-  const handleAddItem = () => {};
+  const handleAddItem = () => {
+    const newItem = {
+      id: uuidv4(),
+      fields: { label: "", url: "", isEdited: true },
+      children: [],
+    };
+  };
 
   return (
     <div className="flex w-full justify-between bg-white py-[20px] px-[24px] overflow-hidden border-[1px] border-[#dedede] ">

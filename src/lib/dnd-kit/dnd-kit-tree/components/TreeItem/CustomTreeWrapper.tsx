@@ -5,20 +5,26 @@ import { ItemEditForm } from "@/components/ListItems/ItemEditForm";
 export const CustomTreeWrapper = ({
   handle,
   onRemove,
-  dataItems,
   value,
   handleChangeDataItem,
+  fields,
 }) => {
-  const foundItem = useMemo(
-    () => dataItems.find((item) => item.id === value),
-    [dataItems]
-  );
+  // const foundItem = useMemo(
+  //   () => dataItems.find((item) => item.id === value),
+  //   [dataItems]
+  // );
 
-  const { label, url } = foundItem;
+  if (!fields) return null;
 
-  if (!foundItem.isEdited) {
+  const { label, url, isEdited } = fields;
+
+  console.log("fields", fields);
+
+  if (!isEdited) {
     return (
       <CustomTreeItem
+        label={label}
+        url={url}
         handle={handle}
         onRemove={onRemove}
         handleChangeDataItem={handleChangeDataItem}
@@ -31,6 +37,7 @@ export const CustomTreeWrapper = ({
         value={value}
         label={label}
         url={url}
+        onRemove={onRemove}
         handleChangeDataItem={handleChangeDataItem}
       />
     );
