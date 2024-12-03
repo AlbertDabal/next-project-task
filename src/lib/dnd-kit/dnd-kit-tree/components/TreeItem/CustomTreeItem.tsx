@@ -14,17 +14,17 @@ export const CustomTreeItem = ({
   };
 
   const handleEdit = () => {
-    handleChangeDataItem(value, {
-      isEdited: true,
-    });
+    handleChangeDataItem(
+      value,
+      {
+        isEdited: true,
+      },
+      "update"
+    );
   };
 
   const handleAddItem = () => {
-    const newItem = {
-      id: uuidv4(),
-      fields: { label: "", url: "", isEdited: true },
-      children: [],
-    };
+    handleChangeDataItem(value, null, "addChild");
   };
 
   return (

@@ -37,10 +37,14 @@ export const ItemEditForm = ({
   const { reset, handleSubmit } = methods;
 
   const onSubmit = (data) => {
-    handleChangeDataItem(value, {
-      isEdited: false,
-      ...data,
-    });
+    handleChangeDataItem(
+      value,
+      {
+        isEdited: false,
+        ...data,
+      },
+      "update"
+    );
 
     reset();
   };

@@ -54,26 +54,57 @@ export default function Home() {
 
   const [treeItems, setTreeItems] = useState(initialItems);
 
-  const updateNestedItem = (tree, id, updates) => {
+  const updateNestedItem = (tree, id, updates, action) => {
     return tree.map((node) => {
       if (node.id === id) {
-        return { ...node, fields: { ...node.fields, ...updates } };
+        switch (action) {
+          case "addChild":
+            return {
+              ...node,
+              children: [
+                ...(node.children || []),
+                {
+                  id: uuidv4(),
+                  fields: { label: "", url: "", isEdited: true },
+                  children: [],
+                },
+              ],
+            };
+
+          case "update":
+            return {
+              ...node,
+              fields: { ...node.fields, ...updates },
+            };
+
+          default:
+            return node;
+        }
       }
+
       if (node.children) {
         return {
           ...node,
-          children: updateNestedItem(node.children, id, updates),
+          children: updateNestedItem(node.children, id, updates, action),
         };
       }
-      return node;
+
+      return node; // Nie zmieniaj nic, jeśli `id` nie pasuje
     });
   };
 
-  const handleChangeDataItem = (id, updates) => {
+  const handleChangeDataItem = (id, updates, action) => {
+    console.log("action", action);
+
     setTreeItems((prevItems) =>
-      updateNestedItem(prevItems, id, {
-        ...updates,
-      })
+      updateNestedItem(
+        prevItems,
+        id,
+        {
+          ...updates,
+        },
+        action
+      )
     );
   };
 
