@@ -37,8 +37,12 @@ export default function Home() {
     },
   ]);
 
-  const handleChangeDataItem = () => {
-    setItems((prev) => [...prev]); // Wywoływanie zmiany stanu bez modyfikacji powoduje cykliczny render
+  const handleChangeDataItem = (id, updates) => {
+    console.log("id, updates", id, updates);
+
+    setDataItems((prevItems) =>
+      prevItems.map((item) => (item.id === id ? { ...item, ...updates } : item))
+    );
   };
 
   const initialItems: TreeItems = [
@@ -59,7 +63,26 @@ export default function Home() {
     { id: "a596e03c-a9c7-47d2-92bf-502937bec36b", children: [] },
   ];
 
-  const handleAddItem = () => {};
+  const [treeItems, setTreeItems] = useState(initialItems);
+
+  const handleAddItem = () => {
+    setTreeItems((prevItems) => [
+      ...prevItems,
+      { id: "test123", children: [] },
+    ]);
+
+    setDataItems((prevItems) => [
+      ...prevItems,
+      {
+        id: "test123",
+        label: "",
+        url: "",
+        isEdited: false,
+      },
+    ]);
+
+    console.log("treeItems", treeItems);
+  };
 
   return (
     <div className="w-full max-w-[1208px]">
@@ -68,8 +91,8 @@ export default function Home() {
       <div className="rounded-md border-[1px] border-border-primary overflow-hidden">
         <SortableTree
           removable
-          defaultItems={initialItems}
-          treeItem={true}
+          items={treeItems}
+          setItems={setTreeItems}
           dataItems={dataItems}
           handleChangeDataItem={handleChangeDataItem}
         />

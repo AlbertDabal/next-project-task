@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { CustomTreeItem } from "./CustomTreeItem";
 import { ItemEditForm } from "@/components/ListItems/ItemEditForm";
 
-export const CustomTreeWrapper = ({ handle, onRemove, dataItems, value }) => {
-  const foundItem = dataItems.find((item) => item.id === value);
+export const CustomTreeWrapper = ({
+  handle,
+  onRemove,
+  dataItems,
+  value,
+  handleChangeDataItem,
+}) => {
+  const foundItem = useMemo(
+    () => dataItems.find((item) => item.id === value),
+    [dataItems]
+  );
 
-  console.log("dataItems, value", dataItems, value, foundItem);
+  const { label, url } = foundItem;
 
   if (!foundItem.isEdited) {
-    return <CustomTreeItem handle={handle} onRemove={onRemove} />;
+    return (
+      <CustomTreeItem
+        handle={handle}
+        onRemove={onRemove}
+        handleChangeDataItem={handleChangeDataItem}
+        value={value}
+      />
+    );
   } else {
-    return <ItemEditForm label={label} url={url} />;
+    return (
+      <ItemEditForm
+        value={value}
+        label={label}
+        url={url}
+        handleChangeDataItem={handleChangeDataItem}
+      />
+    );
   }
 };

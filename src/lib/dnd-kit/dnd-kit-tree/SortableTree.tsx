@@ -114,8 +114,9 @@ export function SortableTree({
   treeItem,
   dataItems,
   handleChangeDataItem,
+  items,
+  setItems,
 }: Props) {
-  const [items, setItems] = useState(() => defaultItems);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null);
   const [offsetLeft, setOffsetLeft] = useState(0);

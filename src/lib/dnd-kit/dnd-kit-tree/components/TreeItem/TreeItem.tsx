@@ -71,6 +71,7 @@ export const TreeItem = forwardRef<HTMLDivElement, Props>(
             onRemove={onRemove}
             dataItems={dataItems}
             value={value}
+            handleChangeDataItem={handleChangeDataItem}
           />
 
           {/* <CustomTreeItem

@@ -5,10 +5,18 @@ export const CustomTreeItem = ({
   url = "test123",
   handle,
   onRemove,
+  handleChangeDataItem,
+  value,
 }) => {
-  const handleRemove = () => {};
+  const handleRemove = () => {
+    onRemove();
+  };
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    handleChangeDataItem(value, {
+      isEdited: true,
+    });
+  };
 
   const handleAddItem = () => {};
 
@@ -23,7 +31,7 @@ export const CustomTreeItem = ({
       </div>
       <div className="rounded-md border-[1px] border-border-primary font-semibold text-text-secondary-700 text-[14px]">
         <button
-          onClick={onRemove}
+          onClick={handleRemove}
           className="py-[10px] px-[16px] border-r-[1px] h-full  border-border-primary"
         >
           Usuń

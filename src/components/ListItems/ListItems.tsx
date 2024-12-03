@@ -23,10 +23,6 @@ export const ListItem = () => {
     setItems((prevItems) => [...prevItems, newItem]);
   };
 
-  console.log("items", items);
-
-  // const renderSubItem;
-
   return (
     <div className="flex flex-col gap-[32px]">
       <EmptyList addItem={addItem} />
