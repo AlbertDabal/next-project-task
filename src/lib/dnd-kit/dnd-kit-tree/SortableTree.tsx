@@ -40,33 +40,8 @@ import type { FlattenedItem, SensorContext, TreeItems } from "./types";
 import { sortableTreeKeyboardCoordinates } from "./keyboardCoordinates";
 import { SortableTreeItem } from "./components";
 import { CSS } from "@dnd-kit/utilities";
-
-const initialItems: TreeItems = [
-  {
-    id: "Home",
-    children: [],
-  },
-  {
-    id: "Collections",
-    children: [
-      { id: "Spring", children: [] },
-      { id: "Summer", children: [] },
-      { id: "Fall", children: [] },
-      { id: "Winter", children: [] },
-    ],
-  },
-  {
-    id: "About Us",
-    children: [],
-  },
-  {
-    id: "My Account",
-    children: [
-      { id: "Addresses", children: [] },
-      { id: "Order History", children: [] },
-    ],
-  },
-];
+import { TreeNode } from "@/core/types/TreeNode";
+import { TreeActionType } from "@/core/types/TreeActionType";
 
 const measuring = {
   droppable: {
@@ -103,11 +78,19 @@ interface Props {
   indentationWidth?: number;
   indicator?: boolean;
   removable?: boolean;
+  handleChangeDataItem: (
+    id: string,
+    updates: Partial<TreeNode["fields"]>,
+    action: TreeActionType
+  ) => void;
+  items: TreeNode[];
+  setItems: (
+    newValue: TreeNode[] | ((prevState: TreeNode[]) => TreeNode[])
+  ) => void;
 }
 
 export function SortableTree({
   collapsible,
-  defaultItems = initialItems,
   indicator = false,
   indentationWidth = 50,
   removable,
@@ -206,7 +189,6 @@ export function SortableTree({
       onDragCancel={handleDragCancel}
     >
       <SortableContext items={sortedIds} strategy={verticalListSortingStrategy}>
-        {console.log("flattenedItems", flattenedItems)}
         {flattenedItems.map(({ id, children, collapsed, depth, fields }) => (
           <SortableTreeItem
             fields={fields}

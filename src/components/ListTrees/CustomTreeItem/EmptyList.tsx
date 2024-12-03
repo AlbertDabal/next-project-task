@@ -2,9 +2,13 @@
 
 import { IconPlusCircle } from "@/assets/icons/IconPlusCircle";
 import { Button } from "@/core/ui/atoms/Button";
-import React from "react";
+import React, { FC } from "react";
 
-export const EmptyList = ({ addItem }) => {
+export type EmptyListProps = {
+  addItem: () => void;
+};
+
+export const EmptyList: FC<EmptyListProps> = ({ addItem }) => {
   const handleAddItem = () => {
     addItem();
   };

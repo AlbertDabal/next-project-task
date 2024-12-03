@@ -7,6 +7,7 @@ export type ButtonProps = {
   children: React.ReactNode;
   icon?: React.ReactNode;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 };
 
 export const Button: React.FC<ButtonProps> = ({

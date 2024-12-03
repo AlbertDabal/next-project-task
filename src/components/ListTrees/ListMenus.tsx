@@ -5,9 +5,10 @@ import { mockDataTrees } from "./data/mockDataTrees";
 import { ListTrees } from "./ListTrees";
 import { EmptyList } from "./CustomTreeItem/EmptyList";
 import { v4 as uuidv4 } from "uuid";
+import { TreeData } from "@/core/types/TreeNode";
 
 export const ListMenus = () => {
-  const [listMenu, setListMenu] = useState(mockDataTrees);
+  const [listMenu, setListMenu] = useState<TreeData>(mockDataTrees);
 
   const handleAddItem = () => {
     const id = uuidv4();
@@ -45,7 +46,6 @@ export const ListMenus = () => {
           id={index}
           listTrees={item}
           setListMenu={setListMenu}
-          listMenu={listMenu}
         />
       ))}
       <pre>{JSON.stringify(listMenu, null, 2)}</pre>

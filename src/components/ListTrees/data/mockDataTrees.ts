@@ -1,4 +1,6 @@
-export const mockDataTrees = [
+import { TreeData } from "@/core/types/TreeNode";
+
+export const mockDataTrees: TreeData = [
   [
     {
       id: "10552010-9c00-4dce-8188-af8eec4962be",

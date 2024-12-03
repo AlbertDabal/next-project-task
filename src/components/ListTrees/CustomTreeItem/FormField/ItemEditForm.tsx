@@ -1,18 +1,28 @@
 "use client";
 
 import { IconTrash } from "@/assets/icons/IconTrash";
+import { TreeActionType } from "@/core/types/TreeActionType";
+import { TreeNode } from "@/core/types/TreeNode";
 import { Button } from "@/core/ui/atoms/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { FormField } from "./FormField";
 
-export type FormFieldProps = {
-  name: string;
-  link: string;
+export type ItemEditFormProps = {
+  label?: string;
+  url?: string;
+  onRemove?(): void;
+  value: string;
+  handleChangeDataItem: (
+    id: string,
+    updates: Partial<TreeNode["fields"]> | null,
+    action: TreeActionType
+  ) => void;
 };
 
-export const ItemEditForm = ({
+export const ItemEditForm: FC<ItemEditFormProps> = ({
   label,
   url,
   onRemove,
@@ -36,34 +46,41 @@ export const ItemEditForm = ({
 
   const { reset, handleSubmit } = methods;
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: ItemSchemaType) => {
     handleChangeDataItem(
       value,
       {
         isEdited: false,
         ...data,
       },
-      "update"
+      TreeActionType.UPDATE
     );
 
     reset();
   };
 
   const handleCancel = () => {
-    handleChangeDataItem(value, {
-      isEdited: false,
-    });
+    handleChangeDataItem(
+      value,
+      {
+        isEdited: false,
+      },
+      TreeActionType.UPDATE
+    );
 
-    //CHECK IS SET LABEL
     if (label === "") {
-      onRemove();
+      if (onRemove) {
+        onRemove();
+      }
     }
 
     reset();
   };
 
   const handleRemove = () => {
-    onRemove();
+    if (onRemove) {
+      onRemove();
+    }
   };
 
   return (

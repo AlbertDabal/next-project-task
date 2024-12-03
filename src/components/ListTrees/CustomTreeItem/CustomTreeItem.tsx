@@ -1,15 +1,32 @@
-import React from "react";
+import { TreeActionType } from "@/core/types/TreeActionType";
+import { TreeNode } from "@/core/types/TreeNode";
+import React, { FC, ReactNode } from "react";
 
-export const CustomTreeItem = ({
-  label = "TEST",
-  url = "test123",
+export type CustomTreeItemProps = {
+  label?: string;
+  url?: string;
+  handle: ReactNode;
+  onRemove?(): void;
+  value: string;
+  handleChangeDataItem: (
+    id: string,
+    updates: Partial<TreeNode["fields"]> | null,
+    action: TreeActionType
+  ) => void;
+};
+
+export const CustomTreeItem: FC<CustomTreeItemProps> = ({
+  label,
+  url,
   handle,
   onRemove,
   handleChangeDataItem,
   value,
 }) => {
   const handleRemove = () => {
-    onRemove();
+    if (onRemove) {
+      onRemove();
+    }
   };
 
   const handleEdit = () => {
@@ -18,12 +35,12 @@ export const CustomTreeItem = ({
       {
         isEdited: true,
       },
-      "update"
+      TreeActionType.UPDATE
     );
   };
 
   const handleAddItem = () => {
-    handleChangeDataItem(value, null, "addChild");
+    handleChangeDataItem(value, null, TreeActionType.ADD_CHILD);
   };
 
   return (

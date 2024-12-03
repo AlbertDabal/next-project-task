@@ -1,8 +1,22 @@
-import React, { useMemo } from "react";
+import { FC, ReactNode } from "react";
 import { CustomTreeItem } from "./CustomTreeItem";
 import { ItemEditForm } from "./FormField/ItemEditForm";
+import { TreeActionType } from "@/core/types/TreeActionType";
+import { TreeNode } from "@/core/types/TreeNode";
 
-export const CustomTreeWrapper = ({
+export type CustomTreeWrapperProps = {
+  handle: ReactNode;
+  onRemove?(): void;
+  value: string;
+  handleChangeDataItem: (
+    id: string,
+    updates: Partial<TreeNode["fields"]> | null,
+    action: TreeActionType
+  ) => void;
+  fields: Partial<TreeNode["fields"]>;
+};
+
+export const CustomTreeWrapper: FC<CustomTreeWrapperProps> = ({
   handle,
   onRemove,
   value,

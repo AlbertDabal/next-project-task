@@ -1,10 +1,24 @@
+import { TreeActionType } from "@/core/types/TreeActionType";
+import { TreeNode } from "@/core/types/TreeNode";
 import { Button } from "@/core/ui/atoms/Button";
 import { SortableTree } from "@/lib/dnd-kit/dnd-kit-tree/SortableTree";
-import { useEffect, useState } from "react";
+import { FC } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export const ListTrees = ({ listTrees, setListMenu, listMenu, id }) => {
-  const setTreeItems = (newValue) => {
+export type ListTreesProps = {
+  listTrees: TreeNode[];
+  setListMenu: (callback: (prevState: TreeNode[][]) => TreeNode[][]) => void;
+  id: number;
+};
+
+export const ListTrees: FC<ListTreesProps> = ({
+  listTrees,
+  setListMenu,
+  id,
+}) => {
+  const setTreeItems = (
+    newValue: TreeNode[] | ((prevNode: TreeNode[]) => TreeNode[])
+  ): void => {
     setListMenu((prevState) =>
       prevState.map((item, i) =>
         i === id
@@ -16,11 +30,16 @@ export const ListTrees = ({ listTrees, setListMenu, listMenu, id }) => {
     );
   };
 
-  const updateNestedItem = (tree, id, updates, action) => {
+  const updateNestedItem = (
+    tree: TreeNode[],
+    id: string,
+    updates: Partial<TreeNode["fields"]>,
+    action: TreeActionType
+  ): TreeNode[] => {
     return tree.map((node) => {
       if (node.id === id) {
         switch (action) {
-          case "addChild":
+          case TreeActionType.ADD_CHILD:
             return {
               ...node,
               children: [
@@ -33,7 +52,7 @@ export const ListTrees = ({ listTrees, setListMenu, listMenu, id }) => {
               ],
             };
 
-          case "update":
+          case TreeActionType.UPDATE:
             return {
               ...node,
               fields: { ...node.fields, ...updates },
@@ -55,9 +74,11 @@ export const ListTrees = ({ listTrees, setListMenu, listMenu, id }) => {
     });
   };
 
-  const handleChangeDataItem = (id, updates, action) => {
-    console.log("action", action);
-
+  const handleChangeDataItem = (
+    id: string,
+    updates: Partial<TreeNode["fields"]> | null,
+    action: TreeActionType
+  ) => {
     setTreeItems((prevItems) =>
       updateNestedItem(
         prevItems,
@@ -104,7 +125,6 @@ export const ListTrees = ({ listTrees, setListMenu, listMenu, id }) => {
           </div>
         )}
       </div>
-      {/* <pre>{JSON.stringify(treeItems, null, 2)}</pre> */}
     </>
   );
 };
