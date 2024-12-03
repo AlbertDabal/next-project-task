@@ -1,12 +1,23 @@
+"use client";
+
 import React, { CSSProperties } from "react";
 import type { UniqueIdentifier } from "@dnd-kit/core";
 import { AnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 import { TreeItem, Props as TreeItemProps } from "./TreeItem";
+import { TreeNode } from "@/core/types/TreeNode";
+import { TreeActionType } from "@/core/types/TreeActionType";
 
 interface Props extends TreeItemProps {
   id: UniqueIdentifier;
+  value: string;
+  fields: Partial<TreeNode["fields"]>;
+  handleChangeDataItem: (
+    id: string,
+    updates: Partial<TreeNode["fields"]>,
+    action: TreeActionType
+  ) => void;
 }
 
 const animateLayoutChanges: AnimateLayoutChanges = ({

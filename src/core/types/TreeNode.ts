@@ -1,5 +1,6 @@
 export type TreeNode = {
   id: string;
+  collapsed?: boolean;
   fields: {
     label: string;
     url: string;
