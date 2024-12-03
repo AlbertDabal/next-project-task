@@ -1,20 +1,20 @@
-import { TreeItems } from "@/lib/dnd-kit/dnd-kit-tree/types";
-import React, { useEffect, useState } from "react";
-import { EmptyList } from "./CustomTreeItem/EmptyList";
-import { SortableTree } from "@/lib/dnd-kit/dnd-kit-tree/SortableTree";
 import { Button } from "@/core/ui/atoms/Button";
+import { SortableTree } from "@/lib/dnd-kit/dnd-kit-tree/SortableTree";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export const ListTrees = ({ listTrees, setListMenu, listMenu }) => {
-  const [treeItems, setTreeItems] = useState(listTrees);
-
-  useEffect(() => {
-    setListMenu((prevItems) =>
-      prevItems.map((item) =>
-        item.id === treeItems.id ? { ...item, ...treeItems } : item
+export const ListTrees = ({ listTrees, setListMenu, listMenu, id }) => {
+  const setTreeItems = (newValue) => {
+    setListMenu((prevState) =>
+      prevState.map((item, i) =>
+        i === id
+          ? typeof newValue === "function"
+            ? newValue(item)
+            : newValue
+          : item
       )
     );
-  }, [treeItems]);
+  };
 
   const updateNestedItem = (tree, id, updates, action) => {
     return tree.map((node) => {
@@ -71,10 +71,12 @@ export const ListTrees = ({ listTrees, setListMenu, listMenu }) => {
   };
 
   const handleAddItem = () => {
+    const id = uuidv4();
+
     setTreeItems((prevItems) => [
       ...prevItems,
       {
-        id: uuidv4(),
+        id: id,
         fields: { label: "", url: "", isEdited: true },
         children: [],
       },
@@ -82,16 +84,16 @@ export const ListTrees = ({ listTrees, setListMenu, listMenu }) => {
   };
 
   const hasOnlyEmptyRootNode =
-    treeItems.length === 1 &&
-    treeItems[0].children.length === 0 &&
-    treeItems[0].fields.label === "";
+    listTrees.length === 1 &&
+    listTrees[0].children.length === 0 &&
+    listTrees[0].fields.label === "";
 
   return (
     <>
       <div className="rounded-md border-[1px] border-border-primary overflow-hidden">
         <SortableTree
           removable
-          items={treeItems}
+          items={listTrees}
           setItems={setTreeItems}
           handleChangeDataItem={handleChangeDataItem}
         />
