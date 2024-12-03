@@ -10,6 +10,8 @@ import { TreeData } from "@/core/types/TreeNode";
 export const ListMenus = () => {
   const [listMenu, setListMenu] = useState<TreeData>(mockDataTrees);
 
+  console.log("uuidv4()", uuidv4());
+
   const handleAddItem = () => {
     const id = uuidv4();
 
