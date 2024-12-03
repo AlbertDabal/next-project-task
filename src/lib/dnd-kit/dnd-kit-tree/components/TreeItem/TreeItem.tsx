@@ -4,8 +4,7 @@ import React, { forwardRef, HTMLAttributes } from "react";
 // import { Action, Handle, Remove } from "../../../../components";
 import { Handle, Remove } from "@/lib/dnd-kit/global/Item";
 import styles from "./TreeItem.module.css";
-import { CustomTreeItem } from "./CustomTreeItem";
-import { CustomTreeWrapper } from "./CustomTreeWrapper";
+import { CustomTreeWrapper } from "@/components/ListTrees/CustomTreeItem/CustomTreeItemWrapper";
 
 export interface Props extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
   treeItem: any;

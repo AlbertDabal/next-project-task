@@ -1,8 +1,6 @@
 "use client";
 
-import { MainSection } from "@/components/DragAndDrop/MainSection";
-import { ItemInfo } from "@/components/ListItems/ItemInfo";
-import { ListItem } from "@/components/ListItems/ListItems";
+import { EmptyList } from "@/components/ListTrees/CustomTreeItem/EmptyList";
 import { Button } from "@/core/ui/atoms/Button";
 import { SortableTree } from "@/lib/dnd-kit/dnd-kit-tree/SortableTree";
 import { TreeItems } from "@/lib/dnd-kit/dnd-kit-tree/types";
@@ -89,7 +87,7 @@ export default function Home() {
         };
       }
 
-      return node; // Nie zmieniaj nic, jeśli `id` nie pasuje
+      return node;
     });
   };
 
@@ -119,10 +117,21 @@ export default function Home() {
     ]);
   };
 
+  if (!treeItems.length) {
+    return (
+      <div className="w-full max-w-[1208px]">
+        <EmptyList addItem={handleAddItem} />
+      </div>
+    );
+  }
+
+  const hasOnlyEmptyRootNode =
+    treeItems.length === 1 &&
+    treeItems[0].children.length === 0 &&
+    treeItems[0].fields.label === "";
+
   return (
     <div className="w-full max-w-[1208px]">
-      <ListItem />
-      {/* <DndTest /> */}
       <div className="rounded-md border-[1px] border-border-primary overflow-hidden">
         <SortableTree
           removable
@@ -130,11 +139,13 @@ export default function Home() {
           setItems={setTreeItems}
           handleChangeDataItem={handleChangeDataItem}
         />
-        <div className="py-[20px] px-[24px]">
-          <Button onClick={handleAddItem}>Dodaj pozycję menu</Button>
-        </div>
+
+        {!hasOnlyEmptyRootNode && (
+          <div className="py-[20px] px-[24px]">
+            <Button onClick={handleAddItem}>Dodaj pozycję menu</Button>
+          </div>
+        )}
       </div>
-      <MainSection />
       <pre>{JSON.stringify(treeItems, null, 2)}</pre>
     </div>
   );

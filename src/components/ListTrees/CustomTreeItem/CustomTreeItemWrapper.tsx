@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { CustomTreeItem } from "./CustomTreeItem";
-import { ItemEditForm } from "@/components/ListItems/ItemEditForm";
+import { ItemEditForm } from "./FormField/ItemEditForm";
 
 export const CustomTreeWrapper = ({
   handle,
@@ -9,16 +9,9 @@ export const CustomTreeWrapper = ({
   handleChangeDataItem,
   fields,
 }) => {
-  // const foundItem = useMemo(
-  //   () => dataItems.find((item) => item.id === value),
-  //   [dataItems]
-  // );
-
   if (!fields) return null;
 
   const { label, url, isEdited } = fields;
-
-  console.log("fields", fields);
 
   if (!isEdited) {
     return (
