@@ -10,7 +10,7 @@ export type CustomTreeItemProps = {
   value: string;
   handleChangeDataItem: (
     id: string,
-    updates: Partial<TreeNode["fields"]> | null,
+    updates: Partial<TreeNode["fields"] | null>,
     action: TreeActionType
   ) => void;
 };

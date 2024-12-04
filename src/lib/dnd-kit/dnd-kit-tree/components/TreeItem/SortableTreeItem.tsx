@@ -11,11 +11,10 @@ import { TreeActionType } from "@/core/types/TreeActionType";
 
 interface Props extends TreeItemProps {
   id: UniqueIdentifier;
-  value: string;
   fields: Partial<TreeNode["fields"]>;
   handleChangeDataItem: (
     id: string,
-    updates: Partial<TreeNode["fields"]>,
+    updates: Partial<TreeNode["fields"] | null>,
     action: TreeActionType
   ) => void;
 }
@@ -27,6 +26,8 @@ const animateLayoutChanges: AnimateLayoutChanges = ({
 
 export function SortableTreeItem({ id, fields, depth, ...props }: Props) {
   const {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-expect-error
     treeItem,
     attributes,
     isDragging,
@@ -36,6 +37,8 @@ export function SortableTreeItem({ id, fields, depth, ...props }: Props) {
     setDroppableNodeRef,
     transform,
     transition,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-expect-error
     handleChangeDataItem,
   } = useSortable({
     id,
@@ -49,6 +52,8 @@ export function SortableTreeItem({ id, fields, depth, ...props }: Props) {
   return (
     <TreeItem
       fields={fields}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       treeItem={treeItem}
       ref={setDraggableNodeRef}
       wrapperRef={setDroppableNodeRef}
@@ -56,6 +61,8 @@ export function SortableTreeItem({ id, fields, depth, ...props }: Props) {
       depth={depth}
       ghost={isDragging}
       disableInteraction={isSorting}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       handleChangeDataItem={handleChangeDataItem}
       handleProps={{
         ...attributes,

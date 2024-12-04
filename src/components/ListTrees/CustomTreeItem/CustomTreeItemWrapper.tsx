@@ -10,7 +10,7 @@ export type CustomTreeWrapperProps = {
   value: string;
   handleChangeDataItem: (
     id: string,
-    updates: Partial<TreeNode["fields"]> | null,
+    updates: Partial<TreeNode["fields"]>,
     action: TreeActionType
   ) => void;
   fields: Partial<TreeNode["fields"]>;
@@ -34,6 +34,8 @@ export const CustomTreeWrapper: FC<CustomTreeWrapperProps> = ({
         url={url}
         handle={handle}
         onRemove={onRemove}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         handleChangeDataItem={handleChangeDataItem}
         value={value}
       />

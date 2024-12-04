@@ -2,12 +2,13 @@ import classNames from "classnames";
 import React, { forwardRef, HTMLAttributes } from "react";
 
 // import { Action, Handle, Remove } from "../../../../components";
-import { Handle, Remove } from "@/lib/dnd-kit/global/Item";
-import styles from "./TreeItem.module.css";
 import { CustomTreeWrapper } from "@/components/ListTrees/CustomTreeItem/CustomTreeItemWrapper";
+import { TreeActionType } from "@/core/types/TreeActionType";
+import { TreeNode } from "@/core/types/TreeNode";
+import { Handle } from "@/lib/dnd-kit/global/Item";
+import styles from "./TreeItem.module.css";
 
 export interface Props extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
-  treeItem: any;
   childCount?: number;
   clone?: boolean;
   collapsed?: boolean;
@@ -15,6 +16,7 @@ export interface Props extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
   disableInteraction?: boolean;
   disableSelection?: boolean;
   ghost?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleProps?: any;
   indicator?: boolean;
   indentationWidth: number;
@@ -22,12 +24,17 @@ export interface Props extends Omit<HTMLAttributes<HTMLLIElement>, "id"> {
   onCollapse?(): void;
   onRemove?(): void;
   wrapperRef?(node: HTMLLIElement): void;
+  fields: Partial<TreeNode["fields"]>;
+  handleChangeDataItem: (
+    id: string,
+    updates: Partial<TreeNode["fields"] | null>,
+    action: TreeActionType
+  ) => void;
 }
 
 export const TreeItem = forwardRef<HTMLDivElement, Props>(
   (
     {
-      treeItem,
       clone,
       depth,
       disableSelection,

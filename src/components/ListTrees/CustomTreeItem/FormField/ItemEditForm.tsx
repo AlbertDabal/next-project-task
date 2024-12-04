@@ -17,7 +17,7 @@ export type ItemEditFormProps = {
   value: string;
   handleChangeDataItem: (
     id: string,
-    updates: Partial<TreeNode["fields"]> | null,
+    updates: Partial<TreeNode["fields"]>,
     action: TreeActionType
   ) => void;
 };
